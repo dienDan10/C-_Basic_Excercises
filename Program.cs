@@ -7,7 +7,7 @@ namespace C__basic_exercises
     {
         static void Main(string[] args)
         {
-            ex56();
+            ex70("Hello World");
         }
 
         private static void ex1()
@@ -393,5 +393,102 @@ namespace C__basic_exercises
             Console.WriteLine("True");
         }
 
+        private static void ex58(int[] arr, int min, int max)
+        {
+            int[] count = new int[max - min + 1];
+            for (int i = 0; i < count.Length; i++)
+            {
+                count[i] = 0;
+            }
+
+            for (int i = 0; i < arr.Length; i++)
+            {
+                count[arr[i] - min]++;
+            }
+
+            int res = 0;
+            for (int i = 0; i < count.Length; i++)
+            {
+                if (count[i] == 0)
+                {
+                    res++;
+                }
+            }
+            Console.WriteLine(res);
+            
+        }
+
+        private static void ex61(int[] arr)
+        {
+            Console.WriteLine("Array: [{0}]", string.Join(", ", arr));
+            // create a list to store num ber != -5 in arr
+            List<int> list = new List<int>();
+            foreach (int i in arr)
+            {
+                if (i != -5)
+                    list.Add(i);
+            }
+            // sort the list
+            list.Sort();
+            int count = 0;
+            // populate the elements in list to arr
+            for (int i = 0; i < arr.Length; i++ )
+            {
+                if (arr[i] != -5)
+                {
+                    arr[i] = list[count++];
+                }
+            }
+
+            Console.WriteLine("After sorted: [{0}]", string.Join(", ", arr));
+
+        }
+
+        private static void ex62(string s)
+        {
+            // abc(de(fg)cd)dfa
+            Console.WriteLine("String: " + s);
+            while (s.Contains('('))
+            {
+                int openParenth = s.LastIndexOf('(');
+                int closeParenth = s.IndexOf(')');
+                s = s.Substring(0, openParenth)
+                    + new string(s.Substring(openParenth + 1, closeParenth - openParenth - 1).Reverse().ToArray())
+                    + s.Substring(closeParenth + 1);
+            }
+            Console.WriteLine("After reverse: " + s);
+           
+        }
+
+        private static void ex64(string path)
+        {
+            FileInfo fileInfo = new FileInfo(path);
+            string fileName = fileInfo.FullName;
+            Console.WriteLine("File name: " + fileName.Split('\\').Last());
+        }
+
+        private static void ex67(string s)
+        {
+            string res = s.Replace('P', '9')
+                .Replace('T', '0')
+                .Replace('S', '1')
+                .Replace('H', '6')
+                .Replace('A', '8');
+            Console.WriteLine("String: " + s);
+            Console.WriteLine("After replace: " + res);
+        }
+
+        private static void ex70(string s)
+        {
+            if (s.Length < 3)
+            {
+                Console.WriteLine("String length must greater than 2");
+                return;
+            }
+
+            string res = s.Remove(0, 1).Remove(s.Length - 2);
+            Console.WriteLine("String: " + s);
+            Console.WriteLine("After replace: " + res);
+        }
     }
 }
