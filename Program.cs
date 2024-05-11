@@ -7,7 +7,7 @@ namespace C__basic_exercises
     {
         static void Main(string[] args)
         {
-            ex37();
+            ex56();
         }
 
         private static void ex1()
@@ -200,7 +200,7 @@ namespace C__basic_exercises
         private static void ex37()
         {
             string s = "PHP Tutorial";
-            if (s.Substring(1).Contains("HP"))
+            if (s.Substring(1, 2).Equals("HP"))
             {
                 StringBuilder stringBuilder = new StringBuilder(s);
                 stringBuilder.Remove(1, 2);
@@ -208,7 +208,190 @@ namespace C__basic_exercises
             }
         }
 
+        private static void ex40() {
+            Console.Write("Input first interger: ");
+            int a = int.Parse(Console.ReadLine());
+            Console.Write("Input second interger: ");
+            int b = int.Parse(Console.ReadLine());
+            if (Math.Abs(20 - a) < Math.Abs(20 - b))
+            {
+                Console.WriteLine(a);
+            } else
+            {
+                Console.WriteLine(b);
+            }
+        }
 
+        private static void ex41(string s)
+        {
+            char[] arr = s.ToCharArray();
+            int count = 0;
+            for (int i = 0; i < arr.Length; i++)
+            {
+                if (arr[i] == 'w')
+                {
+                    count++;
+                }
+            }
+
+            if (count <= 3 && count >=1)
+            {
+                Console.WriteLine("true");
+            } else
+            {
+                Console.WriteLine("false");
+            }
+        }
+
+        private static void ex42()
+        {
+            Console.WriteLine("Input a string: ");
+            string s = Console.ReadLine();
+
+            if (s.Length < 4)
+            {
+                Console.WriteLine(s.ToUpper());
+            } else
+            {
+                Console.WriteLine(s.Substring(0, 4).ToLower() + s.Substring(4));
+            }
+        }
+
+        private static void ex44()
+        {
+            Console.WriteLine("Input a string: ");
+            string s = Console.ReadLine();
+
+            char[] arr = s.ToCharArray();
+            for (int i = 0;i < arr.Length;i++)
+            {
+                if (i % 2 == 0)
+                {
+                    Console.Write(arr[i]);
+                }
+            }
+        }
+
+        private static void ex47()
+        {
+            int[] arr = { 1, 2, 2, 3, 3, 4, 5, 6, 5, 7, 7, 7, 8, 8, 1 };
+            int sum = 0;
+            for (int i = 0; i < arr.Length;i++)
+            {
+                sum = sum + arr[i];
+            }
+            Console.WriteLine("Sum: " + sum);
+        }
+
+        private static void ex48()
+        {
+            int[] arr = { 1, 2, 2, 3, 3, 4, 5, 6, 5, 7, 7, 7, 8, 8, 1 };
+            if (arr[0] == arr[arr.Length - 1]) {
+                Console.WriteLine("True");
+                return;
+            }
+            Console.WriteLine("False");
+        }
+
+        private static void ex50()
+        {
+            int[] arr = { 1, 2, 8 };
+            Console.WriteLine("Array1: [{0}]", string.Join(", ", arr));
+            int left = 0;
+            int right = arr.Length - 1;
+            while (left < right)
+            {
+                int a = arr[left];
+                arr[left] = arr[right];
+                arr[right] = a;
+                left++;
+                right--;
+            }
+            Console.WriteLine("After rotating array becomes: [{0}]", string.Join(", ", arr));
+        }
+
+        private static void ex51()
+        {
+            int[] arr = { 1, 2, 5, 7, 8 };
+            Console.WriteLine("Array1: [{0}]", string.Join(", ", arr));
+            int max = arr[1];
+            for (int i = 0; i < arr.Length; i++) { 
+                if (max < arr[i])
+                {
+                    max = arr[i];
+                }
+            }
+            Console.WriteLine("Highest value between first and last values of the said array: " + max);
+        }
+
+        private static void ex52()
+        {
+            int[] arr1 = { 1, 2, 5 };
+            int[] arr2 = { 0, 3, 8 };
+            int[] arr3 = { -1, 0, 2};
+            int[] arr4 = { arr1[1], arr2[1], arr3[1] };
+
+            Console.WriteLine("Array1: [{0}]", string.Join(", ", arr1));
+            Console.WriteLine("Array2: [{0}]", string.Join(", ", arr2));
+            Console.WriteLine("Array3: [{0}]", string.Join(", ", arr3));
+            Console.WriteLine("New Array: [{0}]", string.Join(", ", arr4));
+        }
+
+        private static void ex54(int year)
+        {
+            if (year < 0)
+            {
+                Console.WriteLine("Not valid year");
+                return;
+            }
+            int century = year / 100 + 1;
+            Console.WriteLine("Century of year {0} is {1}", year, century);
+        }
+
+        private static void ex55(int[] arr)
+        {
+            Console.WriteLine("Array: [{0}]", string.Join(", ", arr));
+            if (arr.Length < 2)
+            {
+                Console.WriteLine("Array length must be greater than 2");
+                return;
+            }
+            int product = arr[0] * arr[1];
+            int index = 0;
+            for (int i = 0; i < arr.Length - 1; i++) {
+                if (arr[i] * arr[i + 1] > product)
+                {
+                    product = arr[i] * arr[i + 1];
+                    index = i;
+                }
+            }
+
+            Console.WriteLine("Pair of adjacent elements are {0} and {1}", arr[index], arr[index + 1]);
+        }
+
+        private static void ex56()
+        {
+            Console.WriteLine("Input a string: ");
+            string s = Console.ReadLine();
+            if (string.IsNullOrEmpty(s))
+            {
+                return;
+            }
+            char[] arr = s.ToCharArray();
+            int left = 0; 
+            int right = arr.Length - 1;
+            while (left < right)
+            {
+                if (arr[left] != arr[right])
+                {
+                    Console.WriteLine("False");
+                    return;
+                }
+                left++;
+                right--;
+            }
+            Console.WriteLine("True");
+        }
 
     }
 }
