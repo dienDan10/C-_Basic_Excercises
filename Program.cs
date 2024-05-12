@@ -1,5 +1,7 @@
 ﻿using System.Reflection.PortableExecutable;
 using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading.Channels;
 
 namespace C__basic_exercises
 {
@@ -7,7 +9,7 @@ namespace C__basic_exercises
     {
         static void Main(string[] args)
         {
-            ex70("Hello World");
+            ex85(new double[] { 1.2, - 3, 4.1, 6, - 5.47 });
         }
 
         private static void ex1()
@@ -489,6 +491,117 @@ namespace C__basic_exercises
             string res = s.Remove(0, 1).Remove(s.Length - 2);
             Console.WriteLine("String: " + s);
             Console.WriteLine("After replace: " + res);
+        }
+
+        private static void ex71(string s)
+        {
+            char[] arr = s.ToCharArray();
+            for (int i = 0; i < arr.Length - 1; i++)
+            {
+                if (arr[i] == arr[i + 1])
+                {
+                    Console.WriteLine("False");
+                    return;
+                }
+            }
+            Console.WriteLine("True");
+        }
+
+        private static void ex72(int[] arr)
+        {
+            int sum = 0;
+            foreach(int i in arr)
+            {
+                sum += i;
+            }
+            if (sum % arr.Length == 0)
+            {
+                Console.WriteLine("True");
+            } else
+            {
+                Console.WriteLine("False");
+            }
+        }
+
+        private static void ex73(string s)
+        {
+            Console.WriteLine("Original string: " + s);
+            char[] chars = s.ToCharArray();
+            Array.Sort(chars);
+            string res = new string(chars);
+            Console.WriteLine("Converted string: " + res);
+        }
+
+        private static int ex75(int num)
+        {
+            return num * 2 - 1;
+        }
+
+        private static void ex76(char a)
+        {
+            Console.WriteLine("ASCII value of {0} is: {1}", a, (int) a);
+        }
+
+        private static void ex81(int num)
+        {
+            Console.WriteLine("Original number: " + num);
+            int converted = swap(num);
+            Console.WriteLine("Swapped number: " + converted);
+            Console.WriteLine("Original value is larger than the swapped value: " + (num > converted));
+
+            int swap(int n)
+            {
+                int res = 0;
+                while (n > 0)
+                {
+                    res = res * 10 + n % 10;
+                    n /= 10;
+                }
+                return res;
+            }
+        }
+
+        private static void ex82(string s)
+        {
+            Console.WriteLine("Original string: " + s);
+            Regex regex = new Regex("[^a-zA-Z]");
+            string res = regex.Replace(s, "");
+            Console.WriteLine("After remove non-letter characters: " + res);
+        }
+
+        private static void ex83(string s)
+        {
+            Console.WriteLine("Original string: " + s);
+            Regex regex = new Regex("[ueoaiUEOAI]");
+            string res = regex.Replace(s, "");
+            Console.WriteLine("After remove all vowels: " + res);
+        }
+
+        private static void ex84(string s)
+        {
+            Console.WriteLine("Original string: " + s);
+            char[] arr = s.ToCharArray();
+            Console.WriteLine("Indices of all lower case letter: ");
+            for (int i = 0; i < arr.Length; i++)
+            {
+                if (char.IsLower(arr[i]))
+                {
+                    Console.Write(i + " ");
+                }
+            }
+        }
+
+        private static void ex85(double[] arr)
+        {
+            Console.WriteLine("Original array: [{0}]", string.Join(",", arr));
+            double sum = 0;
+            double[] cumulative = new double[arr.Length];
+            for (int i = 0; i < arr.Length; i++)
+            {
+                sum += arr[i];
+                cumulative[i] = sum;                
+            }
+            Console.WriteLine("Cumulative sum: [{0}]", string.Join(",", cumulative));
         }
     }
 }
