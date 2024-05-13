@@ -766,5 +766,21 @@ namespace C__basic_exercises
             Console.WriteLine("(\"{0}\") -> {1}", s, res);
         }
 
+        private static void ex100(object a, object b)
+        {
+            
+            if (a.GetType() != b.GetType())
+            {
+                Console.WriteLine("False");
+                return;
+            }
+
+            if (a != b)
+            {
+                Console.WriteLine("False");
+            }
+
+            Console.WriteLine("True");
+        }
     }
 }
