@@ -1,4 +1,5 @@
-﻿using System.Reflection.PortableExecutable;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Reflection.PortableExecutable;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Channels;
@@ -9,7 +10,7 @@ namespace C__basic_exercises
     {
         static void Main(string[] args)
         {
-            ex85(new double[] { 1.2, - 3, 4.1, 6, - 5.47 });
+            ex97("33/33");
         }
 
         private static void ex1()
@@ -603,5 +604,167 @@ namespace C__basic_exercises
             }
             Console.WriteLine("Cumulative sum: [{0}]", string.Join(",", cumulative));
         }
+
+        private static void ex86(string s)
+        {
+            Console.WriteLine("Original string: " + s);
+            int letterNums = s.Count(char.IsLetter);
+            int digitNums = s.Count(char.IsDigit);
+            Console.WriteLine("Number of letters: {0}, Number of digits: {1}", letterNums, digitNums);
+        }
+
+        private static void ex87(int sides)
+        {
+            // the formular to calculate the sum of the measure in interior angle is
+            // (n - 2) * 180 where n is the number of sides
+            Console.WriteLine("Sum of the interior angles of a polygon with {0} sides is {1}", sides, (sides - 2) * 180);
+        }
+
+        private static void ex90(int num)
+        {
+            // convert to binary
+            string binary = Convert.ToString(num, 2);
+            // count the number of one and zero
+            int ones = 0;
+            int zeros = 0;
+            foreach(char i in binary)
+            {
+                if (i == '0') zeros++;
+                if (i == '1') ones++;
+            }
+
+            Console.WriteLine("Number of ones: " +  ones);
+            Console.WriteLine("Number of zeros: " + zeros);
+        }
+
+        private static void ex91(object[] arr)
+        {
+            // use Linq OfType method
+            Console.WriteLine("Original array: [{0}]", string.Join(", ", arr));
+            int[] newArr = arr.OfType<int>().ToArray();
+            Console.WriteLine("Original array: [{0}]", string.Join(", ", newArr));
+        }
+
+        private static void ex92(int num)
+        {
+            Console.WriteLine("Original number: " + num);
+            if (isPrime(num))
+            {
+                Console.WriteLine("Next prime number/Current prime number: " + num);
+                return;
+            }
+
+            for (int i = num + 1; ;i++ )
+            {
+                if (isPrime(i))
+                {
+                    Console.WriteLine("Next prime number/Current prime number: " + i);
+                    return;
+                }
+            }
+
+
+            bool isPrime(int n)
+            {
+                for (int i = 2; i <= Math.Sqrt(n); i++)
+                {
+                    if (n % i == 0)
+                        return false;
+                }
+                return true;
+            }
+        }
+
+        private static void ex93(int num)
+        {
+            int left = 0;
+            int right = num;
+            int middle = num / 2;
+            int i = 10;
+            while (i > 0)
+            {
+                if (middle * middle > num)
+                {
+                    right = middle;                    
+                } else
+                {
+                    left = middle;
+                }
+                middle = (left + right) / 2;
+                i--;
+            }
+
+            Console.WriteLine("({0}) -> {1}", num, middle);
+        }
+
+        private static void ex94(string[] arr) 
+        {
+            Array.Sort(arr);
+            int count = 0;
+            foreach(char c in arr[0])
+            {
+                bool isEqual = true;
+                for (int i = 1; i < arr.Length; i++)
+                {
+                    if (c != arr[i][count])
+                    {
+                        isEqual = false;
+                    }
+                }
+                if (isEqual == false)
+                {
+                    break;
+                }
+                count++;
+            }
+
+            string res = arr[0].Substring(0, count);
+            Console.WriteLine("({0}) -> \"{1}\"", string.Join(", ", arr), res);
+        }
+
+        private static void ex95(string s)
+        {
+            char[] arr = s.ToCharArray();
+            Stack<char> stack = new Stack<char>();
+            bool isValid = true;
+            for (int i = 0; i < arr.Length; i++)
+            {
+                char c = arr[i];
+                if (c == '(')
+                {
+                    stack.Push(')');
+                } else if (c == '[')
+                {
+                    stack.Push(']');
+                } else if (c == '{')
+                {
+                    stack.Push('}');
+                } else if (c == '<')
+                {
+                    stack.Push('>');
+                }
+                else
+                {
+                    // when stack is empty or the closing char is different
+                     if (stack.Count == 0 || stack.Pop() != c)
+                    {
+                        isValid = false;
+                    }
+                }
+            }
+            // when stack still contains elements
+            if (stack.Count > 0)
+            {
+                isValid = false;
+            }
+            Console.WriteLine("(\"{0}\") -> {1}", s, isValid);
+        }
+
+        private static void ex97(string s)
+        {
+            bool res = double.TryParse(s, out _ );
+            Console.WriteLine("(\"{0}\") -> {1}", s, res);
+        }
+
     }
 }
